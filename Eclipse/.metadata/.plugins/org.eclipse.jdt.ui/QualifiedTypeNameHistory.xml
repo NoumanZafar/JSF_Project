@@ -8,10 +8,15 @@
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.sql.SQLException"/>
 <fullyQualifiedTypeName name="java.sql.SQLIntegrityConstraintViolationException"/>
-<fullyQualifiedTypeName name="gmit.ie.Student"/>
 <fullyQualifiedTypeName name="javax.faces.component.html.HtmlDataTable"/>
 <fullyQualifiedTypeName name="javax.faces.bean.SessionScoped"/>
 <fullyQualifiedTypeName name="javax.annotation.PostConstruct"/>
 <fullyQualifiedTypeName name="javax.faces.bean.ViewScoped"/>
 <fullyQualifiedTypeName name="gmit.ie.Courses"/>
+<fullyQualifiedTypeName name="org.neo4j.driver.v1.Driver"/>
+<fullyQualifiedTypeName name="gmit.ie.Student"/>
+<fullyQualifiedTypeName name="org.neo4j.driver.v1.TransactionWork"/>
+<fullyQualifiedTypeName name="gmit.ie.Neo4j_DAO"/>
+<fullyQualifiedTypeName name="com.mysql.cj.exceptions.CJCommunicationsException"/>
+<fullyQualifiedTypeName name="org.neo4j.driver.v1.exceptions.ServiceUnavailableException"/>
 </qualifiedTypeNameHistroy>

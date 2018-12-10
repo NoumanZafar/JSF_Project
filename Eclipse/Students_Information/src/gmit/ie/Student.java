@@ -8,6 +8,7 @@ public class Student {
 	private String cID;
 	private String name;
 	private String address;
+	private Courses course;
 	
 	public Student() {
 		super();
@@ -51,6 +52,14 @@ public class Student {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public Courses getCourse() {
+		return course;
+	}
+
+	public void setCourse(Courses course) {
+		this.course = course;
 	}
 	
 }

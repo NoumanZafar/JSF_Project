@@ -1,0 +1,100 @@
+package gmit.ie;
+
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+
+@ManagedBean
+@SessionScoped
+public class CourseController {
+
+	private Course_DAO dao;
+	private List<Courses> list;
+	private Courses course;
+
+	public CourseController() throws Exception {
+		super();
+		dao = new Course_DAO();
+		list = new ArrayList<Courses>();
+	}
+
+	public List<Courses> getList() {
+		return list;
+	}
+
+	public void loadCourses() {
+		try {
+			list = dao.loadCourses();
+		} catch (CommunicationsException e) {
+			FacesMessage message = new FacesMessage("Error : Communication Problem ");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+
+		} catch (SQLException e) {
+			FacesMessage message = new FacesMessage("Error : Can't Connect to MYSQL Database.");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	}
+
+	public String getID(Courses course) {
+		this.course = course;
+		return "courseStudent.xhtml";
+	}
+
+	public void courseStudentDetails() {
+		try {
+			list = dao.courseStudentDetails(this.course);
+		} catch (CommunicationsException e) {
+			FacesMessage message = new FacesMessage("Error : Communication Problem ");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		} catch (SQLException e) {
+			FacesMessage message = new FacesMessage("Error : " + e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	}
+
+	public void deleteCourse(Courses c) {
+		try {
+			dao.deleteCourse(c);
+		} catch(SQLIntegrityConstraintViolationException e) {
+			FacesMessage message = new FacesMessage("Error : Course " + c.getcID() + " Can't be Deleted as there are Student Associated.");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}catch (CommunicationsException e) {
+			FacesMessage message = new FacesMessage("Error : Communication Problem ");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			FacesMessage message = new FacesMessage("Error : " + e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	}
+
+	public String addCourse(Courses c) {
+		try {
+			dao.addCourse(c);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			FacesMessage message = new FacesMessage("Error : Course " + c.getcID() + " Already Exists");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			return null;
+
+		} catch (CommunicationsException e) {
+			FacesMessage message = new FacesMessage("Error : Communication problem");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			return null;
+
+		} catch (SQLException e) {
+			FacesMessage message = new FacesMessage("Error : " + e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			return null;
+		}
+		return "courses.xhtml";
+	}
+}

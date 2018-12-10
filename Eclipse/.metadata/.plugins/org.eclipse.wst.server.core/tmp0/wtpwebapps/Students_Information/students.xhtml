@@ -5,6 +5,7 @@
 
 <h:head>
 	<h:outputStylesheet library="css" name="tables.css" />
+	<h:messages globalOnly="true" styleClass='error' style="color:red"/>
 	<title>Students</title>
 </h:head>
 
@@ -43,10 +44,10 @@
 			</h:column>
 
 			<h:column>
-				<f:facet name="header">Action</f:facet>
-				<h:outputLink value="">All Details</h:outputLink>
-				<h:outputLink value="">   Delete</h:outputLink>
-			</h:column>
+               	<f:facet name = "header">Action</f:facet>
+             	<h:commandLink value="All Details" action="#{studentController.getStudentID(student)}" />&#160;
+               	<h:commandLink  value="Delete" action="#{studentController.deleteStudent(student)}"  />
+            </h:column>
 
 		</h:dataTable>
 		<br />

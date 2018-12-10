@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
+<h:head>
+	<h:outputStylesheet library="css" name="tables.css" />
+	<h:messages globalOnly="true" styleClass='error' style="color:red" />
+	<title>All Student Details</title>
+</h:head>
+
+ <f:metadata>
+	<f:event listener="#{mainPage.xhtml}"
+		type="preRenderView"></f:event>
+</f:metadata>
+
+<h:body>
+	<h3>All Student Details</h3>
+	<br />
+	<br />
+	<h:form>
+	
+		<br />
+		<br />
+		<h:panelGrid columns="2">
+			<h:outputLink value="mainPage.xhtml">Home</h:outputLink>
+			<h:outputLink value="students.xhtml">Students</h:outputLink>
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

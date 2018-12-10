@@ -1,0 +1,87 @@
+package gmit.ie;
+
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import org.neo4j.driver.v1.exceptions.Neo4jException;
+
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+
+@ManagedBean
+@SessionScoped
+public class StudentController {
+	private Student_DAO dao;
+	private Neo4j_DAO neo_dao;
+	private Student student;
+	private List<Student> list;
+
+	public StudentController() throws Exception {
+		super();
+		dao = new Student_DAO();
+		neo_dao = new Neo4j_DAO();
+		list = new ArrayList<Student>();
+	}
+
+	public List<Student> getList() {
+		return list;
+	}
+
+	public void loadStudents() {
+		try {
+			list = dao.loadStudents();
+		} catch (CommunicationsException e) {
+			FacesMessage message = new FacesMessage("Error : Communication Problem ");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+
+		} catch (SQLException e) {
+			FacesMessage message = new FacesMessage("Error : " + e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	}
+
+	public String addStudent(Student s) {
+		try {
+			dao.addStudent(s);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			if (e.getMessage().contains("Cannot add or update a child row")) {
+				FacesMessage message = new FacesMessage("Error : Course " + s.getcID() + " Does not Exist.");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				return null;
+			} else {
+				FacesMessage message = new FacesMessage("Error : " + e.getMessage());
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				return null;
+			}
+
+		} catch (CommunicationsException e) {
+			FacesMessage message = new FacesMessage("Error : Communication problem");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			return null;
+
+		} catch (SQLException e) {
+			FacesMessage message = new FacesMessage("Error : " + e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			return null;
+		}
+
+		try {
+			neo_dao.addStudent_Neo(s);
+		} catch (Neo4jException e) {
+			e.printStackTrace();
+		}
+
+		return "students.xhtml";
+	}
+	
+	public String getStudentID(Student student) {
+		this.student=student;
+		return "allStudentDetails.xhtml";
+	}
+}

@@ -1,0 +1,68 @@
+package gmit.ie;
+
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+
+@ManagedBean
+@SessionScoped
+public class StudentController {
+	private Student_DAO dao;
+	private List<Student> list;
+
+	public StudentController() throws Exception {
+		super();
+		dao = new Student_DAO();
+		list = new ArrayList<Student>();
+	}
+
+	public List<Student> getList() {
+		return list;
+	}
+
+	public void loadStudents() {
+		try {
+			list = dao.loadStudents();
+		} catch (CommunicationsException e) {
+			FacesMessage message = new FacesMessage("Error : Communication Problem ");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+
+		} catch (SQLException e) {
+			FacesMessage message = new FacesMessage("Error : " + e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	}
+
+	public String addStudent(Student s) {
+		try {
+			dao.addStudent(s);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			if(e.getMessage().contains("Foreign key")) {
+				System.out.println("foreign key constraint");
+			}else {
+			FacesMessage message = new FacesMessage("Error : " + e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			return null;
+			}
+
+		} catch (CommunicationsException e) {
+			FacesMessage message = new FacesMessage("Error : Communication problem");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			return null;
+
+		} catch (SQLException e) {
+			FacesMessage message = new FacesMessage("Error : " + e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			return null;
+		}
+		return "students.xhtml";
+	}
+}

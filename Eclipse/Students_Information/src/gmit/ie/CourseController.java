@@ -38,7 +38,7 @@ public class CourseController {
 			FacesContext.getCurrentInstance().addMessage(null, message);
 
 		} catch (SQLException e) {
-			FacesMessage message = new FacesMessage("Error : " + e.getMessage());
+			FacesMessage message = new FacesMessage("Error : Can't Connect to MYSQL Database.");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 	}
@@ -63,11 +63,16 @@ public class CourseController {
 	public void deleteCourse(Courses c) {
 		try {
 			dao.deleteCourse(c);
-		} catch (CommunicationsException e) {
+		} catch(SQLIntegrityConstraintViolationException e) {
+			FacesMessage message = new FacesMessage("Error : Course " + c.getcID() + " Can't be Deleted as there are Student Associated.");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			
+		}catch (CommunicationsException e) {
 			FacesMessage message = new FacesMessage("Error : Communication Problem ");
 			FacesContext.getCurrentInstance().addMessage(null, message);
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			FacesMessage message = new FacesMessage("Error : " + e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
@@ -87,7 +92,6 @@ public class CourseController {
 			return null;
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			FacesMessage message = new FacesMessage("Error : " + e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, message);
 			return null;
