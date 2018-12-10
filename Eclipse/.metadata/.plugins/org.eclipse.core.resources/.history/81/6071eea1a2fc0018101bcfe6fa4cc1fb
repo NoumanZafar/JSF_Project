@@ -1,0 +1,142 @@
+package gmit.ie;
+
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import org.neo4j.driver.v1.exceptions.ClientException;
+import org.neo4j.driver.v1.exceptions.Neo4jException;
+import org.neo4j.driver.v1.exceptions.ServiceUnavailableException;
+
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+
+@ManagedBean
+@SessionScoped
+public class StudentController {
+	private Student_DAO dao;
+	private Neo4j_DAO neo_dao;
+	private Student student;
+	private List<Student> list;
+
+	public StudentController() throws Exception {
+		super();
+		dao = new Student_DAO();
+		neo_dao = new Neo4j_DAO();
+		list = new ArrayList<Student>();
+	}
+
+	public List<Student> getList() {
+		return list;
+	}
+
+	public void loadStudents() {
+		try {
+			list = dao.loadStudents();
+		} catch (CommunicationsException e) {
+			FacesMessage message = new FacesMessage("Error : Communication Problem ");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+
+		} catch (SQLException e) {
+			FacesMessage message = new FacesMessage("Error : Can't Connect to MYSQL Database.");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	}
+
+	public String addStudent(Student s) {
+		try {
+			dao.addStudent(s);
+			neo_dao.addStudent_Neo(s);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			if (e.getMessage().contains("Cannot add or update a child row")) {
+				FacesMessage message = new FacesMessage("Error : Course " + s.getcID() + " Does not Exist.");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				return null;
+			} else {
+				FacesMessage message = new FacesMessage("Error : " + e.getMessage());
+				FacesContext.getCurrentInstance().addMessage(null, message);
+				return null;
+			}
+
+		} catch (CommunicationsException e) {
+			FacesMessage message = new FacesMessage("Error : Communication problem");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			return null;
+
+		} catch (SQLException e) {
+			FacesMessage message = new FacesMessage("Error : " + e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			return null;
+
+		} catch (ServiceUnavailableException e) {
+			FacesMessage message = new FacesMessage(
+					"Error : Student " + s.getName() + " has not been added to Neo4j Database, as it is Offline.");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+
+		} catch (Neo4jException e) {
+			FacesMessage message = new FacesMessage("Error : " + e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+			return null;
+		}
+
+		return "students.xhtml";
+	}
+
+	public String getStudentID(Student student) {
+		this.student = student;
+		return "allStudentDetails.xhtml";
+	}
+
+	public void allStudentDetails() {
+		try {
+			if (this.student != null) {
+				list = dao.allStudentDetails(this.student);
+			}else {
+				FacesMessage message = new FacesMessage("Error : NO STUDENT Chosen to show the Details.!");
+				FacesContext.getCurrentInstance().addMessage(null, message);
+			}
+		} catch (CommunicationsException e) {
+			FacesMessage message = new FacesMessage("Error : Communication Problem ");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		} catch (SQLException e) {
+			FacesMessage message = new FacesMessage("Error : Can't Connect to MYSQL Database.");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	}
+
+	public void deleteStudent(Student s) {
+		try {
+			neo_dao.deletStudent(s);
+			dao.deleteStudent(s);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			FacesMessage message = new FacesMessage("Error : Student " + s.getSid() + " Can't be Deleted.");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		} catch (CommunicationsException e) {
+			FacesMessage message = new FacesMessage("Error : Communication Problem ");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			FacesMessage message = new FacesMessage("Error : " + e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+
+		} catch (ClientException e) {
+			FacesMessage message = new FacesMessage(
+					"Error : Student " + s.getSid() + " in Neo4j has Relationship whith other Node");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+
+		} catch (ServiceUnavailableException e) {
+			FacesMessage message = new FacesMessage(
+					"Error : Student " + s.getName() + " can't be deleted as the Neo4j Connection is down.");
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		} catch (Neo4jException e) {
+			FacesMessage message = new FacesMessage("Error : " + e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	}
+}

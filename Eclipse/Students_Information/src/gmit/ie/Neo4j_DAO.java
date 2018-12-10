@@ -11,13 +11,26 @@ import org.neo4j.driver.v1.TransactionWork;
 import org.neo4j.driver.v1.exceptions.Neo4jException;
 
 public class Neo4j_DAO {
+	/**
+	 * Driver and Session to connect to Neo4j Database.
+	 */
 	private Driver driver;
 	private Session session;
 
-	public Neo4j_DAO() throws Exception{
+	public Neo4j_DAO() throws Exception {
 		super();
 	}
 
+	/**
+	 * Add the nodes of type :STUDENT in the database where all nodes has name and
+	 * address attribute.This method is a Transaction Function.
+	 * 
+	 * @User neo4j to connect to database.
+	 * @Password neo4jdb is the password.
+	 * 
+	 * @param s Of type Student.
+	 * @throws Neo4jException
+	 */
 	public void addStudent_Neo(Student s) throws Neo4jException {
 		driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("neo4j", "neo4jdb"));
 		session = driver.session();
@@ -31,6 +44,12 @@ public class Neo4j_DAO {
 		});
 	}
 
+	/**
+	 * This method take an Student Object and delete the related Node from database.
+	 * 
+	 * @param s Of type Student.
+	 * @throws Neo4jException
+	 */
 	public void deletStudent(Student s) throws Neo4jException {
 		driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("neo4j", "neo4jdb"));
 		session = driver.session();

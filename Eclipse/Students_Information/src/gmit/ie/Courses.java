@@ -2,8 +2,17 @@ package gmit.ie;
 
 import javax.faces.bean.ManagedBean;
 
+/**
+ * Courses is a managedBean which holds the Course Attributes.
+ * 
+ * @author Nouman
+ *
+ */
 @ManagedBean
 public class Courses {
+	/**
+	 * Course Attributes.
+	 */
 	private String cID;
 	private String cName;
 	private int duration;
@@ -13,6 +22,12 @@ public class Courses {
 		super();
 	}
 
+	/**
+	 * 
+	 * @param cID      - Course ID
+	 * @param cName    - Course Name
+	 * @param duration - Duration of the course.
+	 */
 	public Courses(String cID, String cName, int duration) {
 		super();
 		this.cID = cID;
@@ -20,6 +35,9 @@ public class Courses {
 		this.duration = duration;
 	}
 
+	/**
+	 * Getters and setters for the attributes.
+	 */
 	public String getcID() {
 		return cID;
 	}
@@ -43,7 +61,7 @@ public class Courses {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
-	
+
 	public Student getStudent() {
 		return student;
 	}

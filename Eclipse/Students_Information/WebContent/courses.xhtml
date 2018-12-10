@@ -4,11 +4,13 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
+	<!-- Display error messages and call CSS file for the table display -->
 	<h:outputStylesheet library="css" name="tables.css" />
 	<h:messages globalOnly="true" styleClass='error' style="color:red" />
 	<title>Courses</title>
 </h:head>
 
+<!-- On the page Load call the method and display the records -->
 <f:metadata>
 	<f:event listener="#{courseController.loadCourses()}"
 		type="preRenderView"></f:event>
@@ -17,9 +19,11 @@
 <h:body>
 	<h:form>
 		<h3>Courses</h3>
+		<!-- Navigate to the addCourse Page -->
 		<h:commandButton value="Add Courses" action="addCourses.xhtml" />
 		<br />
 		<br />
+		<!-- Take the details from the list and display in the table -->
 		<h:dataTable value="#{courseController.list}" var="course"
 			headerClass="table-header" rowClasses="table-odd-row,table-even-row">
 
@@ -37,16 +41,20 @@
 				<f:facet name="header">Duration</f:facet>
  	 		 	#{course.duration}
 			</h:column>
-			
+
+			<!-- Show student Details and delete button  -->
 			<h:column>
-               	<f:facet name = "header">Action</f:facet>
-             	<h:commandLink value="Show Students" action="#{courseController.getID(course)}" />&#160;
-               	<h:commandLink  value="Delete" action="#{courseController.deleteCourse(course)}"  />
-            </h:column>
+				<f:facet name="header">Action</f:facet>
+				<h:commandLink value="Show Students"
+					action="#{courseController.getID(course)}" />&#160;
+               	<h:commandLink value="Delete"
+					action="#{courseController.deleteCourse(course)}" />
+			</h:column>
 
 		</h:dataTable>
 		<br />
+		<!-- Navigation -->
 		<h:outputLink value="mainPage.xhtml">Home</h:outputLink>
 	</h:form>
 </h:body>
-</html> 
+</html>

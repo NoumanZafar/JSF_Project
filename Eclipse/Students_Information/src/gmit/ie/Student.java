@@ -2,18 +2,34 @@ package gmit.ie;
 
 import javax.faces.bean.ManagedBean;
 
+/**
+ * Courses is a managedBean which holds the Student Attributes.
+ * 
+ * @author Nouman
+ *
+ */
 @ManagedBean
 public class Student {
+	/**
+	 * Student Attributes.
+	 */
 	private String sid;
 	private String cID;
 	private String name;
 	private String address;
 	private Courses course;
-	
+
 	public Student() {
 		super();
 	}
 
+	/**
+	 * 
+	 * @param sid     - Student ID
+	 * @param cID     - Course ID
+	 * @param name    - Student name
+	 * @param address - Student address
+	 */
 	public Student(String sid, String cID, String name, String address) {
 		super();
 		this.sid = sid;
@@ -22,6 +38,10 @@ public class Student {
 		this.address = address;
 	}
 
+	/**
+	 * Getters and Setters for all the attributes.
+	 * 
+	 */
 	public String getSid() {
 		return sid;
 	}
@@ -61,5 +81,5 @@ public class Student {
 	public void setCourse(Courses course) {
 		this.course = course;
 	}
-	
+
 }

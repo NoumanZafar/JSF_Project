@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<title>Add Courses</title>
+	<!-- Display the Error message -->
+	<h:messages globalOnly="true" styleClass='error' style="color:red" />
+</h:head>
+
+<h:body>
+	<h3>Add courses</h3>
+	<br />
+	<h:form>
+		<!-- A grid which has three columns 
+				1. Label 
+				2. InputText 
+				3. Error message  -->
+
+		<!-- All Input Text fields requires the input 
+			 If not it action won't proceed and error message displayed. -->
+
+		<h:panelGrid columns="3">
+
+			<label>ID:</label>
+			<h:inputText value="#{courses.cID}" a:placeholder="Course ID" id="id"
+				required="true" requiredMessage="Course ID is mandatory"
+				immediate="true" />
+
+			<h:message for="id" style="color:red" />
+
+			<label>Name:</label>
+			<h:inputText value="#{courses.cName}" a:placeholder="Course Name"
+				id="name" required="true" requiredMessage="Name is mandatory"
+				immediate="true" />
+			<h:message for="name" style="color:red" />
+
+			<label>Duration:</label>
+			<h:inputText value="#{courses.duration}"
+				a:placeholder="Course Duration" id="duration" required="true"
+				requiredMessage="Duration is mandatory" immediate="true" />
+			<h:message for="duration" style="color:red" />
+
+		</h:panelGrid>
+		<br />
+		<h:commandButton value="Add Courses"
+			action="#{courseController.addCourse(courses)}" />
+		<br />
+		<br />
+		<!-- Navigate to different pages -->
+		<h:panelGrid columns="2">
+			<h:outputLink value="mainPage.xhtml">Home</h:outputLink>
+			<h:outputLink value="courses.xhtml"> Courses</h:outputLink>
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>
