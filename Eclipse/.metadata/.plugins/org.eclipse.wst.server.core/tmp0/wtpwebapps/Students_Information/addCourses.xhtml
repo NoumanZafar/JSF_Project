@@ -6,13 +6,14 @@
 
 <h:head>
 	<title>Add Courses</title>
+	<h:outputStylesheet library="css" name="stylesheet.css" />
 	<!-- Display the Error message -->
-	<h:messages globalOnly="true" styleClass='error' style="color:red" />
+	<h:messages globalOnly="true" styleClass='error' style="color:red; text-align:center;" />
 </h:head>
 
-<h:body>
-	<h3>Add courses</h3>
-	<br />
+<h:body styleClass="addCourse">
+	<h3 id="title" align="center">Add courses</h3>
+	<div id="mydiv" style="margin-left:-100px;">
 	<h:form>
 		<!-- A grid which has three columns 
 				1. Label 
@@ -51,9 +52,10 @@
 		<br />
 		<!-- Navigate to different pages -->
 		<h:panelGrid columns="2">
-			<h:outputLink value="mainPage.xhtml">Home</h:outputLink>
-			<h:outputLink value="courses.xhtml"> Courses</h:outputLink>
+			<h:outputLink value="mainPage.xhtml" style="font-size:25px;display: flex; justify-content: center;">Home</h:outputLink>
+			<h:outputLink value="courses.xhtml" style="font-size:25px;display: flex; justify-content: center;"> Courses</h:outputLink>
 		</h:panelGrid>
 	</h:form>
+	</div>
 </h:body>
 </html>

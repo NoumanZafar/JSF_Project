@@ -6,7 +6,8 @@
 <h:head>
 	<!-- Display error messages and call CSS file for the table display -->
 	<h:outputStylesheet library="css" name="tables.css" />
-	<h:messages globalOnly="true" styleClass='error' style="color:red" />
+		<h:outputStylesheet library="css" name="stylesheet.css" />
+	<h:messages globalOnly="true" styleClass='error' style="color:red ; text-align:center;" />
 	<title>All Student Details</title>
 </h:head>
 
@@ -16,10 +17,9 @@
 		type="preRenderView"></f:event>
 </f:metadata>
 
-<h:body>
-	<h3>All Student Details</h3>
-	<br />
-	<br />
+<h:body styleClass="studentDetails">
+	<h3 id="title" align="center">All Student Details</h3>
+	<div id="mydiv">
 	<!-- Take the details from the list and display in the table -->
 	<h:form>
 		<h:dataTable value="#{studentController.list}" var="student"
@@ -55,9 +55,10 @@
 		<br />
 		<!-- Page Navigation. -->
 		<h:panelGrid columns="2">
-			<h:outputLink value="mainPage.xhtml">Home</h:outputLink>
-			<h:outputLink value="students.xhtml">Students</h:outputLink>
+			<h:outputLink value="mainPage.xhtml" style="font-size:25px;">Home</h:outputLink>
+			<h:outputLink value="students.xhtml" style="font-size:25px;">Students</h:outputLink>
 		</h:panelGrid>
 	</h:form>
+	</div>
 </h:body>
 </html>

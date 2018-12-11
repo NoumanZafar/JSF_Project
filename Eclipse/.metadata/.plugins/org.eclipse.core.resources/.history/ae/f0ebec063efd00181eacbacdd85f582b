@@ -1,0 +1,39 @@
+#mydiv {
+    position:absolute;
+    top: 36%;
+    left: 48%;
+    width:auto;
+    height:auto;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+   /*  border: 1px solid #ccc; */
+    background-color: rgba(192,192,192,0.05);
+}
+
+#title{
+	font-size:40px;
+}
+
+.image{
+	background-image: url(ima.gif);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+.courseStudent{
+	background-image: url(another.gif);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+.courses{
+	background-image: url(addThis.gif);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+.studentDetails{
+	background-image: url(picture.gif);
+	background-repeat:no-repeat;
+	background-size:cover;
+}

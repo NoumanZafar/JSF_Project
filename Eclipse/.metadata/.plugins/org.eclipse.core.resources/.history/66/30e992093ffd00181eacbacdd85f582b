@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<title>Add Students</title>
+	<h:outputStylesheet library="css" name="stylesheet.css" />
+	<!-- To display all the error messages -->
+	<h:messages globalOnly="true" styleClass='error' style="color:red ; text-align:center;" />
+</h:head>
+
+<h:body styleClass="addStudent">
+	<h3 id="title" align="center">Add Students</h3>
+	<div id="mydiv" style="margin-left:10px;">
+	<h:form>
+		<!-- A grid which has three columns 
+				1. Label 
+				2. InputText 
+				3. Error message  
+
+			 All Input Text fields requires the input but address If not action command
+			 won't proceed and error message displayed. -->
+
+		<h:panelGrid columns="3">
+
+			<label>Student ID :</label>
+			<h:inputText value="#{student.sid}" a:placeholder="Student ID"
+				id="sid" required="true" requiredMessage="Student ID is mandatory"
+				immediate="true" />
+			<h:message for="sid" style="color:red" />
+
+			<label>Name :</label>
+			<h:inputText value="#{student.name}" a:placeholder="Student Name"
+				id="sname" required="true"
+				requiredMessage="Student name is mandatory" immediate="true" />
+			<h:message for="sname" style="color:red" />
+
+			<label>Address :</label>
+			<h:inputText value="#{student.address}"
+				a:placeholder="Student Address" id="saddress" required="false"
+				requiredMessage="Address is mandatory" immediate="false" />
+			<h:message for="saddress" style="color:red" />
+
+			<label>Course ID :</label>
+			<h:inputText value="#{student.cID}" a:placeholder="Course ID"
+				id="scID" required="true" requiredMessage="Course ID is mandatory"
+				immediate="true" />
+			<h:message for="scID" style="color:red" />
+
+		</h:panelGrid>
+		<br />
+
+		<!-- Call the method from Controller -->
+		<h:commandButton value="Add Student"
+			action="#{studentController.addStudent(student)}" />
+		<br />
+		<br />
+
+		<!-- Navigate between the pages. -->
+		<h:panelGrid columns="2">
+			<h:outputLink value="mainPage.xhtml" style="font-size:25px;display: flex; justify-content: center;">Home</h:outputLink>
+			<h:outputLink value="students.xhtml" style="font-size:25px;display: flex; justify-content: center;"> Students</h:outputLink>
+		</h:panelGrid>
+	</h:form>
+	</div>
+</h:body>
+</html>

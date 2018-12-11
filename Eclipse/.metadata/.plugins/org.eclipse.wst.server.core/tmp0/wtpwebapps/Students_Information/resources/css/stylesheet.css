@@ -1,7 +1,7 @@
 #mydiv {
     position:absolute;
-    top: 30%;
-    left: 50%;
+    top: 36%;
+    left: 48%;
     width:auto;
     height:auto;
     margin-top: -9em; /*set to a negative number 1/2 of your height*/
@@ -16,6 +16,36 @@
 
 .image{
 	background-image: url(ima.gif);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+.courseStudent{
+	background-image: url(another.gif);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+.courses{
+	background-image: url(addThis.gif);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+.studentDetails{
+	background-image: url(picture.gif);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+.addStudent{
+	background-image: url(last.gif);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+.addCourse{
+	background-image: url(this.gif);
 	background-repeat:no-repeat;
 	background-size:cover;
 }
