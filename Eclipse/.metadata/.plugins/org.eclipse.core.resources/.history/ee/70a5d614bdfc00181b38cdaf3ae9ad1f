@@ -1,0 +1,3 @@
+.iamge{
+	background-image: url(download.jpg);
+}

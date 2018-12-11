@@ -1,0 +1,21 @@
+#mydiv {
+    position:absolute;
+    top: 30%;
+    left: 50%;
+    width:auto;
+    height:auto;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+   /*  border: 1px solid #ccc; */
+    background-color: rgba(192,192,192,0.05);
+}
+
+#title{
+	font-size:40px;
+}
+
+.image{
+	background-image: url(im.gif);
+	background-repeat:no-repeat;
+	background-size:cover;
+}

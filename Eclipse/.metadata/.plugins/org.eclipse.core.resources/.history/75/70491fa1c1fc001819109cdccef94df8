@@ -1,0 +1,9 @@
+.image{
+	background-image: url(download.jpg);
+}
+
+#line1{	
+	color: red;
+	text-align: center;
+	margin-top:100px;
+}

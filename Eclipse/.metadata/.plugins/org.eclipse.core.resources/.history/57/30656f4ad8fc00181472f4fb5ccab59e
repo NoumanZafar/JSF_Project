@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<!-- Display error messages and call CSS file for the table display -->
+	<h:outputStylesheet library="css" name="tables.css" />
+	<h:outputStylesheet library="css" name="stylesheet.css" />
+	<h:messages globalOnly="true" styleClass='error' style="color:red" />
+	<title>Students</title>
+</h:head>
+
+<!-- On the page Load call the method and display the records -->
+<f:metadata>
+	<f:event listener="#{studentController.loadStudents()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+
+<h:body>
+<h3 id="title" align="center">Students</h3>
+<div id="mydiv">
+	<h:form>
+		<!-- Take the details from the list and display in the table -->
+		<h:dataTable value="#{studentController.list}" var="student"
+			headerClass="table-header" rowClasses="table-odd-row,table-even-row">
+
+			<h:column>
+				<f:facet name="header">Student ID</f:facet>
+ 	 			 #{student.sid}
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Course ID</f:facet>
+ 	 		 	#{student.cID}
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+ 	 		 	#{student.name}
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Address</f:facet>
+ 	 		 	#{student.address}
+			</h:column>
+			<!-- Show All Details and delete button  -->
+			<h:column>
+				<f:facet name="header">Action</f:facet>
+				<h:commandLink value="All Details"
+					action="#{studentController.getStudentID(student)}" />&#160;
+               	<h:commandLink value="Delete"
+					action="#{studentController.deleteStudent(student)}" />
+			</h:column>
+
+		</h:dataTable>
+		<br />
+		<!-- Navigation -->
+			<!-- Navigation to addStudent Page -->
+		<h:commandButton value="Add Students" action="addStudents.xhtml" style="display: flex; justify-content: center;" />
+		<h:outputLink value="mainPage.xhtml" style="font-size:25px;display: flex; justify-content: center;">Home</h:outputLink>
+	
+	</h:form>
+	</div>
+</h:body>
+</html>

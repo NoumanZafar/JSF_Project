@@ -1,0 +1,7 @@
+.iamge{
+	background-image: url(download.jpg);
+}
+#line1{
+	
+	color: red;
+}

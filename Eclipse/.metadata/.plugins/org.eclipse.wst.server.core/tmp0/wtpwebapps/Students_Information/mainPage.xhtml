@@ -5,11 +5,20 @@
 
 <h:head>
 	<title>Main Page</title>
+	<h:outputStylesheet library="css" name="styles.css" />
 </h:head>
 <!-- Page navigation -->
-<h:body>
-	<h:outputLink value="courses.xhtml">Manage Courses</h:outputLink>
+<h:body styleClass="image" style="margin-top: 250px;">
+	<h:outputLink  value="courses.xhtml">
+		<p id="line1">
+			<font size="15" >Manage Courses</font>
+		</p>
+	</h:outputLink>
 	<br />
-	<h:outputLink value="students.xhtml">Manage Students</h:outputLink>
+	<h:outputLink value="students.xhtml">
+		<p id="line2">
+			<font size="15">Manage Students</font>
+		</p>
+	</h:outputLink>
 </h:body>
 </html>

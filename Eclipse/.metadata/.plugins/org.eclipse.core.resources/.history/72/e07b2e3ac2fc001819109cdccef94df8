@@ -1,0 +1,15 @@
+.image{
+	background-image: url(download.jpg);
+}
+
+#line1{	
+	color: red;
+	text-align: center;
+	font-family: "Trebuchet MS" ,sans-sarif;
+}
+
+#line2{	
+	color: #80ff80;
+	text-align: center;
+	margin-top:50px;
+}

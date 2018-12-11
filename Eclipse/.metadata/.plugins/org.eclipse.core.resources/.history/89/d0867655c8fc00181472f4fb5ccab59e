@@ -1,0 +1,18 @@
+.image{
+	background-image: url(pic.gif);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+#line1{	
+	color: red;
+	text-align: center;
+	font-family: "Times New Roman", Times, serif;
+}
+
+#line2{	
+	color: #80ff80;
+	text-align: center;
+	margin-top:100px;
+	font-family: "Times New Roman", Times, serif;
+}

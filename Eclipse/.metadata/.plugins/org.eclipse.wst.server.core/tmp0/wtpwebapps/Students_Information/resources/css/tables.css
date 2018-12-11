@@ -10,11 +10,13 @@
 .table-odd-row {
 	border-top:1px solid #FFFFFF;
 	background:#D2DEEF;
+	padding:10px;
 	text-align:left;
 }
  
 .table-even-row {
 	border-top:1px solid #FFFFFF;
 	background:none repeat scroll 0 0 #EAEFF7;
+	padding:10px;
 	text-align:left;
 }
